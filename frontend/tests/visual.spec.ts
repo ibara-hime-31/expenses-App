@@ -6,7 +6,7 @@ test.beforeEach(async ({ page }) => {
   await page.reload()
 })
 
-test("sandbox light theme", async ({ page, sauceVisual }) => {
+test("sandbox light theme", async ({ sauceVisual }) => {
   await sauceVisual.visualCheck("homepage-light")
 })
 
