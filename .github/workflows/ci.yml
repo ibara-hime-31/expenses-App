@@ -1,0 +1,32 @@
+name: expensesAppTest
+on: 
+  push: 
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup
+      uses: actions/setup-node@v4
+      with: {node-version: '20'}
+
+    - name: Dependencies
+      run: npm ci
+      working-directory: ./frontend
+
+    - name: lint
+      run: npm run lint
+      working-directory: ./frontend
+
+    - name: typeCheck
+      run: npx tsc --noEmit
+      working-directory: ./frontend
+
+    - name: checks
+      run: npm run build
+      working-directory: ./frontend
