@@ -1,0 +1,41 @@
+apiVersion: v1alpha
+kind: playwright
+showConsoleLog: true
+
+sauce:
+  region: us-west-1
+  concurrency: 1
+  metadata:
+    tags:
+      - sandbox
+      - learning
+  tunnel:
+    name: pragya-local
+
+env:
+  SAUCE_RUN: "true"
+
+playwright:
+  version: 1.58.2
+  configFile: playwright.config.ts
+
+rootDir: ./
+
+suites:
+  - name: "Sandbox on Chrome / Windows 11"
+    platformName: "Windows 11"
+    screenResolution: "1280x800"
+    testMatch:
+      - ".*sandbox\\.spec\\.ts$"
+    params:
+      browserName: "chromium"
+      project: "chromium"
+
+  - name: "Sandbox on Chrome / macOS 13"
+    platformName: "macOS 13"
+    screenResolution: "1280x960"
+    testMatch:
+      - ".*sandbox\\.spec\\.ts$"
+    params:
+      browserName: "chromium"
+      project: "chromium"
