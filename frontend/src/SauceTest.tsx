@@ -1,41 +1,40 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 
-type Todo = { id: number; text: string; done: boolean }
+type Todo = { id: number; text: string; done: boolean };
 
-const STORAGE_KEY = "sauce-test-todos"
+const STORAGE_KEY = "sauce-test-todos";
 
 const SauceTest = () => {
-  const [count, setCount] = useState(0)
-  const [input, setInput] = useState("")
+  const [count, setCount] = useState(0);
+  const [input, setInput] = useState("");
   const [todos, setTodos] = useState<Todo[]>(() => {
-    const saved = localStorage.getItem(STORAGE_KEY)
-    return saved ? JSON.parse(saved) : []
-  })
-  const [theme, setTheme] = useState<"light" | "dark">("light")
+    const saved = localStorage.getItem(STORAGE_KEY);
+    return saved ? JSON.parse(saved) : [];
+  });
+  const [theme, setTheme] = useState<"light" | "dark">("light");
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(todos))
-  }, [todos])
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
+  }, [todos]);
 
   const addTodo = () => {
-    const text = input.trim()
-    if (!text) return
-    setTodos([...todos, { id: Date.now(), text, done: false }])
-    setInput("")
-  }
+    const text = input.trim();
+    if (!text) return;
+    setTodos([...todos, { id: Date.now(), text, done: false }]);
+    setInput("");
+  };
 
   const toggleTodo = (id: number) =>
-    setTodos(todos.map((t) => (t.id === id ? { ...t, done: !t.done } : t)))
+    setTodos(todos.map((t) => (t.id === id ? { ...t, done: !t.done } : t)));
 
-  const removeTodo = (id: number) => setTodos(todos.filter((t) => t.id !== id))
+  const removeTodo = (id: number) => setTodos(todos.filter((t) => t.id !== id));
 
-  const isDark = theme === "dark"
-  const bg = isDark ? "#1a1a1a" : "#f5f5f7"
-  const fg = isDark ? "#f5f5f7" : "#1a1a1a"
-  const card = isDark ? "#2a2a2a" : "#ffffff"
-  const border = isDark ? "#3a3a3a" : "#e0e0e0"
-  const accent = "#ff3366"   // pink
-
+  const isDark = theme === "dark";
+  const bg = isDark ? "#1a1a1a" : "#f5f5f7";
+  const fg = isDark ? "#f5f5f7" : "#1a1a1a";
+  const card = isDark ? "#2a2a2a" : "#ffffff";
+  const border = isDark ? "#3a3a3a" : "#e0e0e0";
+  const accent = "#ff3366"; // pink
 
   const btn: React.CSSProperties = {
     padding: "8px 16px",
@@ -46,7 +45,7 @@ const SauceTest = () => {
     cursor: "pointer",
     marginRight: 8,
     fontSize: 14,
-  }
+  };
 
   const card_style: React.CSSProperties = {
     background: card,
@@ -54,7 +53,7 @@ const SauceTest = () => {
     borderRadius: 8,
     marginBottom: 16,
     border: `1px solid ${border}`,
-  }
+  };
 
   return (
     <div
@@ -88,7 +87,9 @@ const SauceTest = () => {
 
         <section style={card_style}>
           <h2 style={{ marginTop: 0, fontSize: 18 }}>Browser info</h2>
-          <div style={{ fontSize: 13, fontFamily: "monospace", lineHeight: 1.6 }}>
+          <div
+            style={{ fontSize: 13, fontFamily: "monospace", lineHeight: 1.6 }}
+          >
             <div data-testid="user-agent">UserAgent: {navigator.userAgent}</div>
             <div data-testid="viewport">
               Viewport: {window.innerWidth} x {window.innerHeight}
@@ -102,17 +103,34 @@ const SauceTest = () => {
           <h2 style={{ marginTop: 0, fontSize: 18 }}>Counter</h2>
           <div
             data-testid="counter-value"
-            style={{ fontSize: 48, fontWeight: 600, color: accent, marginBottom: 12 }}
+            style={{
+              fontSize: 48,
+              fontWeight: 600,
+              color: accent,
+              marginBottom: 12,
+            }}
           >
             {count}
           </div>
-          <button data-testid="counter-inc" onClick={() => setCount((c) => c + 1)} style={btn}>
+          <button
+            data-testid="counter-inc"
+            onClick={() => setCount((c) => c + 1)}
+            style={btn}
+          >
             +1
           </button>
-          <button data-testid="counter-dec" onClick={() => setCount((c) => c - 1)} style={btn}>
+          <button
+            data-testid="counter-dec"
+            onClick={() => setCount((c) => c - 1)}
+            style={btn}
+          >
             -1
           </button>
-          <button data-testid="counter-reset" onClick={() => setCount(0)} style={btn}>
+          <button
+            data-testid="counter-reset"
+            onClick={() => setCount(0)}
+            style={btn}
+          >
             Reset
           </button>
         </section>
@@ -121,8 +139,8 @@ const SauceTest = () => {
           <h2 style={{ marginTop: 0, fontSize: 18 }}>Todo list</h2>
           <form
             onSubmit={(e) => {
-              e.preventDefault()
-              addTodo()
+              e.preventDefault();
+              addTodo();
             }}
             style={{ display: "flex", gap: 8, marginBottom: 16 }}
           >
@@ -141,13 +159,20 @@ const SauceTest = () => {
                 fontSize: 14,
               }}
             />
-            <button data-testid="todo-add" type="submit" style={{ ...btn, marginRight: 0 }}>
+            <button
+              data-testid="todo-add"
+              type="submit"
+              style={{ ...btn, marginRight: 0 }}
+            >
               Add
             </button>
           </form>
 
           {todos.length === 0 ? (
-            <div data-testid="todo-empty" style={{ opacity: 0.5, fontStyle: "italic" }}>
+            <div
+              data-testid="todo-empty"
+              style={{ opacity: 0.5, fontStyle: "italic" }}
+            >
               No todos yet. Add one above.
             </div>
           ) : (
@@ -198,14 +223,15 @@ const SauceTest = () => {
           {todos.length > 0 && (
             <div style={{ marginTop: 12, fontSize: 13, opacity: 0.7 }}>
               <span data-testid="todo-count">
-                {todos.filter((t) => !t.done).length} of {todos.length} remaining
+                {todos.filter((t) => !t.done).length} of {todos.length}{" "}
+                remaining
               </span>
             </div>
           )}
         </section>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SauceTest
+export default SauceTest;

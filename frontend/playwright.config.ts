@@ -1,6 +1,6 @@
-import { defineConfig, devices } from "@playwright/test"
+import { defineConfig, devices } from "@playwright/test";
 
-const onSauce = process.env.SAUCE_RUN === "true"
+const onSauce = process.env.SAUCE_RUN === "true";
 
 export default defineConfig({
   testDir: "./tests",
@@ -27,4 +27,4 @@ export default defineConfig({
         reuseExistingServer: true,
         timeout: 30_000,
       },
-})
+});

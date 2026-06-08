@@ -1,7 +1,7 @@
-import DisplayExpense from "./DisplayExpense"
+import DisplayExpense from "./DisplayExpense";
 
 const App = () => {
-  return <DisplayExpense />
-}
+  return <DisplayExpense />;
+};
 
-export default App
+export default App;
